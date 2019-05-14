@@ -69,17 +69,67 @@ bool DenseGraph::adjIterator::end() {
 	return i >= int(G.V());
 }
 
-DenseGraph::BridgeIterator::BridgeIterator(const DenseGraph &G, unsigned int v):
-	G{ G }, v{ v }, i{ 0 } {}
+DenseGraph::BridgeIterator::BridgeIterator(const DenseGraph &G):
+	G{ G }, i{ 0 }{}
+
+vector <int> orden;
+vector <int> st;
+int cnt = 0;
+
+void DenseGraph::BridgeIterator::vectores() {
+	int x = 0;
+	while (x<int(G.Vcnt)) {
+		orden.push_back(-1);
+		st.push_back(-1);
+		x++;
+	}
+	return;
+}
+
+
+void DenseGraph::BridgeIterator::DFS(Edge e) {
+	orden[e.w] = cnt++;
+	st[e.w] = e.v;
+	adjIterator Z(G, e.w);
+	for (unsigned int k = Z.beg(); !Z.end(); k = Z.nxt()) {
+		if (orden[k] == -1) {
+			DFS(Edge(e.w, k));
+		}
+	}
+	return;
+	for (int v = 0; v < G.Vcnt - 1; v++) {
+		if (orden[v] = -1)DFS(Edge(v, v));
+	}
+}
+
+bool DenseGraph::BridgeIterator::puente(int v, int w) {//Aqui se valida el puente 
+	bool result = true;
+	int auxw = w;
+	int padre = st[w];
+	adjIterator Des(G, auxw);//Descendencia de w
+	for (int hijo=Des.beg(); !Des.end(); hijo=Des.nxt()) {
+		adjIterator Asc(G, padre);//Ascendencia de w
+		cout << padre << endl;
+			cout << hijo << "		" << padre << endl;
+		padre = st[padre];//padre del padre
+	}
+	return result;
+}
 
 unsigned int DenseGraph::BridgeIterator::beg() {
-	return -1;
+	vectores();
+	adjIterator Z(G, 0);
+	DFS(Edge(0, 0));
+	puente(6, 4);
+	i = -1; return nxt();
+
 }
 
 unsigned int DenseGraph::BridgeIterator::nxt() {
+	i++;
 	return -1;
 }
 
 bool DenseGraph::BridgeIterator::end() {
-	return -1;
+	return i>=int(G.V());
 }

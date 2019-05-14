@@ -4,8 +4,19 @@
 using namespace std;
 
 int main() {
-	DenseGraph g("Grafo", 13, false);
+	
+	DenseGraph g("Grafo", 8, false);
+	g.insert(Edge(0, 2));
 	g.insert(Edge(0, 5));
+	g.insert(Edge(0, 7));
+	g.insert(Edge(2, 6));
+	g.insert(Edge(7, 1));
+	g.insert(Edge(7, 4));
+	g.insert(Edge(5, 3));
+	g.insert(Edge(5, 4));
+	g.insert(Edge(6, 4));
+	g.insert(Edge(3, 4));
+	/*g.insert(Edge(0, 5));
 	g.insert(Edge(0, 6));
 	g.insert(Edge(0, 1));
 	g.insert(Edge(1, 2));
@@ -20,7 +31,7 @@ int main() {
 	g.insert(Edge(4, 9));
 	g.insert(Edge(4, 11));
 	g.insert(Edge(9, 11));
-	g.insert(Edge(11, 12));
+	g.insert(Edge(11, 12));*/
 	g.print();
 
 	DenseGraph::adjIterator A(g, 0);
@@ -30,12 +41,12 @@ int main() {
 	}
 	cout <<"\n";
 
-	DenseGraph::BridgeIterator B(g, 0);
+	DenseGraph::BridgeIterator B(g);
 	cout << "\n Puentes del grafo = ";
-	for (unsigned int w = B.beg(); !B.end(); w = B.nxt()) {
+	/*for (unsigned int w = B.beg(); !B.end(); w = B.nxt()) {
 		cout << w << " ";
-	}
+	}*/
 	cout << "\n\n";
-
+	B.beg();
 	system("pause");
 }

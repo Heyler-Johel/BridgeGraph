@@ -45,10 +45,12 @@ public:
 
 class DenseGraph::BridgeIterator {
 	const DenseGraph &G;
-	unsigned int v;
 	int i;
+	void vectores();
+	bool puente(int v, int w);
+	void DFS(Edge e);
 public:
-	BridgeIterator(const DenseGraph &G, unsigned int v);
+	BridgeIterator(const DenseGraph &G);
 	unsigned int beg();
 	unsigned int nxt();
 	bool end();
