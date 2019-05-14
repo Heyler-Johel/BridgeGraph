@@ -1,7 +1,6 @@
 #include "DenseGraph.h"
 #include <vector>
 #include <string>
-
 using namespace std;
 
 DenseGraph::DenseGraph(string name, unsigned int V, bool digraph = false) :
@@ -37,7 +36,7 @@ void DenseGraph::print() {
 	cout << "=== Graph : [" << name << "]"
 		 << " Size V = " << Vcnt
 		 << "  E = " << Ecnt
-		 << " ===\n";
+		 << " ===\n\n";
 	for (unsigned int v = 0; v < Vcnt; v++) {
 		typename DenseGraph::adjIterator A(*this, v);
 		bool primero = true;
@@ -72,8 +71,25 @@ bool DenseGraph::adjIterator::end() {
 DenseGraph::BridgeIterator::BridgeIterator(const DenseGraph &G, unsigned int v):
 	G{ G }, v{ v }, i{ 0 } {}
 
-unsigned int DenseGraph::BridgeIterator::beg() {
-	return -1;
+
+void DenseGraph::isBridge(uint16_t& v, uint16_t& w)
+{//funcion para almacenar los puentes en caso que encuentre, almacena su ubicacion
+	vector<int> j; j.push_back(v); j.push_back(w);
+	this->Bridges.push_back(j);
+	
+}
+vector<int>DenseGraph::begBridges()
+{//funcion auxiliar para que retorne el primer puente que hay en el grafo
+	vector<int> vw;
+	vw.push_back(Bridges[0][0]);
+	vw.push_back(Bridges[0][1]);
+	return vw;
+}
+
+unsigned int DenseGraph::BridgeIterator::beg() 
+{
+	
+	return 1;
 }
 
 unsigned int DenseGraph::BridgeIterator::nxt() {
