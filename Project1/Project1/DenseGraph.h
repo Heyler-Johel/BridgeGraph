@@ -11,11 +11,14 @@ struct Edge {
 		v{v}, w{w} {}
 };
 
+
 class DenseGraph {
 	string name;
 	unsigned int Vcnt, Ecnt;
 	bool digraph;
 	vector<vector<bool>>adj;
+	vector<vector<int>>Bridges;	//vector donde almacena las coordenadas de los puentes
+	vector<int>begBridges();
 public:
 	DenseGraph(string, unsigned int, bool);
 	unsigned int V() const { return Vcnt; }
@@ -23,6 +26,7 @@ public:
 	bool directed() const { return digraph; }
 	void insert(Edge);
 	void remove(Edge);
+	void isBridge(uint16_t& v, uint16_t& w);
 	void print();
 	string getName();
 	bool edge(unsigned int, unsigned int);
